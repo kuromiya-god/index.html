@@ -78,6 +78,7 @@ nav a.logout {
 		// Servletから問題リストを取得する
 		questions = (ArrayList<Ques>) session.getAttribute("quesList");
 		// 問題リストをループして、各問題を表示する
+		//チェックボックスでやりたい問題を選択して試験を開始する
 	%>
 	<p>単体モード</p>
 	<form method="post" action="/testManager/QuizServlet">
@@ -85,7 +86,8 @@ nav a.logout {
 		for (Ques ques : questions) {
 	%>
 	<div>
-		<p><input type="checkbox" name="ids[]" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>		
+		<p><input type="checkbox" name="ids[]" value=<%=ques.getId()%>>
+		問題文: <%= ques.getQuestion() %></p>		
 	</div>
 	<%
 		}

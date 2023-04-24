@@ -1,5 +1,5 @@
 package model;
-
+//クイズ全般のDTO
 public class Ques {
 	private String question;
 	private String option1;

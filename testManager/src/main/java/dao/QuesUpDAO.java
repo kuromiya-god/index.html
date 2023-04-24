@@ -15,7 +15,7 @@ public class QuesUpDAO {
 	private final String DB_PASS = "password";
 	
 	public void quesUpDAO(Ques ques) {
-		/*Account account = null;*/
+		
 		
 		//データベースへ接続
 		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
@@ -32,19 +32,19 @@ public class QuesUpDAO {
 			pS.setString(7, ques.getExplanation());
 			
 			//INSERT文を実行する
-			int result = pS.executeUpdate();
+			pS.executeUpdate();
 			
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
 			
 		}
-		//見つかったユーザーまたはNULLを返す
+		//何も返さない
 		return;
 	}
 	
 	public void quesEditDAO(Ques ques) {
-		/*Account account = null;*/
+		
 		
 		//データベースへ接続
 		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
@@ -62,19 +62,19 @@ public class QuesUpDAO {
 			pS.setInt(8, ques.getId());
 			
 			//INSERT文を実行する
-			int result = pS.executeUpdate();
+			pS.executeUpdate();
 			
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
 			
 		}
-		//見つかったユーザーまたはNULLを返す
+		//何も返さない
 		return;
 	}
 	
 	public void quesDeleteDAO(Ques ques) {
-		/*Account account = null;*/
+		
 		
 		//データベースへ接続
 		try(Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)){
@@ -85,14 +85,14 @@ public class QuesUpDAO {
 			pS.setInt(1, ques.getId());
 			
 			//INSERT文を実行する
-			int result = pS.executeUpdate();
+			pS.executeUpdate();
 			
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
 			
 		}
-		//見つかったユーザーまたはNULLを返す
+		//何も返さない
 		return;
 	}
 	

@@ -71,18 +71,12 @@ nav a.logout {
 		<div style="flex:3;">
 			<div id="tab1" class="tabcontent active">
 	<form method="post" action="/testManager/QuesEdit">
-	<%-- <label for="answer">問題番号：</label>
-	<input type="number" name="numberInput" list="numberList" required>
-	<datalist id="numberList">
-	<% ArrayList<Integer> quesList = (ArrayList<Integer>) session.getAttribute("quesList"); %>
-  	<% for (int i = 0; i < quesList.size(); i++) { %>
-    	<option value="<%= quesList.get(i) %>">
-  	<% } %>
-	</datalist>
-	<input type="submit" value="表示"> --%>
+	
 	<% ArrayList<Ques> questions = new ArrayList<Ques>(); %>
 	<% questions = (ArrayList<Ques>) request.getAttribute("question"); %>
 	</form>
+	<!--削除してよいかの確認画面をはさんで論理削除する  -->
+	<!--誤作動を防ぐため、削除ページに直接飛ぶリンクは作らない  -->
 	<p style="color: red; font-size: 24px;">削除モード</p>
 	<form method="post" action="/testManager/QuesDeleteExecute">
 <%

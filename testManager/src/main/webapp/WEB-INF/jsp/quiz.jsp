@@ -76,25 +76,26 @@ nav a.logout {
 				<%
 		// Servletから問題リストを取得する
 		questions = (ArrayList<Ques>) session.getAttribute("question");
-		// 問題リストをループして、各問題を表示する
+		// quizChoiceで選択した問題リストをループして表示する
+		//問題を選択してpostする
 	%>
 	<form method="post" action="/testManager/Scoring">
+	<% int number =0; %>
 <%
 		for (Ques ques : questions) {
 	%>
+	
 	<div>
 		<p>問題文: <%= ques.getQuestion() %></p>
 		
 			<input type="hidden" name="id" value="<%= ques.getId() %>">
-        	<input type="radio" name="answer_<%=ques.getId()%>" value="1"><%= ques.getOption1() %><br>
-        	<input type="radio" name="answer_<%=ques.getId()%>" value="2"><%= ques.getOption2() %><br>
-        	<input type="radio" name="answer_<%=ques.getId()%>" value="3"><%= ques.getOption3() %><br>
-        	<input type="radio" name="answer_<%=ques.getId()%>" value="4"><%= ques.getOption4() %><br>
-			
+        	<input type="radio" name="answer_<%= number %>" value="1"><%= ques.getOption1() %><br>
+        	<input type="radio" name="answer_<%= number %>" value="2"><%= ques.getOption2() %><br>
+        	<input type="radio" name="answer_<%= number %>" value="3"><%= ques.getOption3() %><br>
+        	<input type="radio" name="answer_<%= number %>" value="4"><%= ques.getOption4() %><br>
+		<% number++;} %>
 	</div>
-	<%
-		}
-	%>
+	
 	
 	<input type="submit" value="回答する">
 		</form>

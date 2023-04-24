@@ -20,6 +20,7 @@ public class LogOut extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//セッションを破棄して、リダイレクト
 		HttpSession session = request.getSession();
 		session.invalidate();
 		response.sendRedirect("/testManager/login.jsp");

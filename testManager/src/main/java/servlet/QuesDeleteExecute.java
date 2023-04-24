@@ -37,14 +37,16 @@ public class QuesDeleteExecute extends HttpServlet {
 		String id1 = request.getParameter("id");
 		int id = Integer.parseInt(id1);
 		
-		System.out.println(id);
+		
 		
 		//Quesクラスをインスタンス化
 		Ques ques = new Ques(question,option1,option2,option3,option4,answer,explanation,id);
 		QuesUpDAO qd = new QuesUpDAO(); 
+		//削除を実行
 		qd.quesDeleteDAO(ques);
 		
-		//フォワード
+		//今編集できるリストを呼び出して
+		//フォワード(編集ページへ)
 		QuesListSetDAO l = new QuesListSetDAO();
 		ArrayList<Ques> quesList = l.findByQuesList();
 		HttpSession session = request.getSession();

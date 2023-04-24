@@ -1,5 +1,5 @@
 package servlet;
-
+//編集のトップ画面へ遷移するservlet
 import java.io.IOException;
 import java.util.ArrayList;
 

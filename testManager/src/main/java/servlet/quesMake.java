@@ -1,29 +1,31 @@
 package servlet;
-//編集モードから貰ったデータをDBに格納するservlet
+//問題作成モードから問題を受け取り、upするservlet
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dao.QuesListSetDAO;
 import dao.QuesUpDAO;
 import model.Ques;
 
 /**
- * Servlet implementation class QuesEditForDao
+ * Servlet implementation class quesMake
  */
-@WebServlet("/QuesEditForDao")
-public class QuesEditForDao extends HttpServlet {
+@WebServlet("/quesMake")
+public class quesMake extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/jsp/quesMake2.jsp").forward(request, response);
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String question = request.getParameter("question");
@@ -34,24 +36,17 @@ public class QuesEditForDao extends HttpServlet {
 		String answer1 = request.getParameter("answer");
 		int answer = Integer.parseInt(answer1);
 		String explanation = request.getParameter("explanation");
-		//問題の編集には既存のidが必要なためここだけ問題作成と異なる
-		String id1 = request.getParameter("id");
-		int id = Integer.parseInt(id1);
 		
-		System.out.println(id);
+		
 		
 		//Quesクラスをインスタンス化
-		Ques ques = new Ques(question,option1,option2,option3,option4,answer,explanation,id);
+		Ques ques = new Ques(question,option1,option2,option3,option4,answer,explanation);
 		QuesUpDAO qd = new QuesUpDAO(); 
-		//編集した問題をup
-		qd.quesEditDAO(ques);
+		//問題をup
+		qd.quesUpDAO(ques);
 		
-		//フォワード(編集ページへ)
-		QuesListSetDAO l = new QuesListSetDAO();
-		ArrayList<Ques> quesList = l.findByQuesList();
-		HttpSession session = request.getSession();
-		session.setAttribute("quesList",quesList);
-		request.getRequestDispatcher("/WEB-INF/jsp/editBefore.jsp").forward(request, response);
+		//フォワード(問題作成ページへ)
+		request.getRequestDispatcher("/WEB-INF/jsp/quesMake2.jsp").forward(request, response);
 	}
 
 }

@@ -57,6 +57,7 @@ nav a.logout {
 }
 </style>
 </head>
+<!--クイズの作成画面、必要な情報をすべて入力してPOSTすることで、誤作動を防ごうとしている  -->
 <body>
 	<h1>4択クイズ作成</h1>
 	<div style="display:flex;">

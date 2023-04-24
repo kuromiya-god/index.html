@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--ここがメインページのつもり、このページと新規登録ページだけをwebapp直下に置く  -->
 <title>ログイン画面</title>
 </head>
 <body>

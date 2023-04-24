@@ -71,6 +71,8 @@ nav a.logout {
 		<div style="flex:3;">
 			<div id="tab1" class="tabcontent active">
 	<form method="post" action="/testManager/QuesEdit">
+	<!-- 本当は問題のidと問題文を表示してそこから選択する処理をしたかったが、inputのnumberだと、存在しないidを入力出来てしまうため
+	あきらめて、問題を全て表示することにした。2023/4/24  -->
 	<%-- <label for="answer">問題番号：</label>
 	<input type="number" name="numberInput" list="numberList" required>
 	<datalist id="numberList">

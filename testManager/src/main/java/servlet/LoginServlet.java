@@ -1,5 +1,5 @@
 package servlet;
-
+//ログインの成否を判定するservlet
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("userId", userId);
 			
-			//フォワード
+			//フォワード(試験画面へ)
 			request.getRequestDispatcher("/WEB-INF/jsp/quizChoice.jsp").forward(request, response);
 			
 			/* session.invalidate();*/
@@ -47,10 +47,10 @@ public class LoginServlet extends HttpServlet {
 			 System.out.println(obj);*/
 			 
 		}else {
-			/*String logmessage = "ユーザーIDまたはパスワードのどちらかに誤りがあります";
-			request.setAttribute("logmessage", logmessage);*/
-			//リダイレクト
-	        request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+			//フォワード(外から見れないjspへ)
+			String logmessage = "ユーザーIDまたはパスワードのどちらかに誤りがあります";
+			request.setAttribute("logmessage", logmessage);
+			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 		}
 	}
 

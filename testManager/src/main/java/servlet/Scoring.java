@@ -36,6 +36,7 @@ public class Scoring extends HttpServlet {
 		ArrayList<Integer> answerList = (ArrayList<Integer>)session.getAttribute("answerList");
 		
 		
+		//問題の数をキャストする
 		int numOfQuestions = 0;
 		try {
 		    if (count instanceof Integer) {
@@ -49,13 +50,15 @@ public class Scoring extends HttpServlet {
 		}
         
 		System.out.println("numがnullか" +numOfQuestions);
-		ArrayList<Integer>answers = new ArrayList<>(); // 回答を保存するための配列
+		//回答を入れる
+		ArrayList<Integer>answers = new ArrayList<>(); 
+		//成否を入れる
 	    ArrayList<Boolean> ansCheck = new ArrayList<>();
 	    
 	    
 	    // 各質問の回答を配列に保存
 	    for (int i = 0; i < numOfQuestions; i++) {
-            String answer = request.getParameter("answer_" + (i+1));
+            String answer = request.getParameter("answer_" + i);
             if (answer != null) {
                 System.out.println("answerが１～４で入っているか"+answer);
             	answers.add(i,Integer.parseInt(answer));
@@ -94,16 +97,7 @@ public class Scoring extends HttpServlet {
 		ArrayList<String> option41 = new ArrayList<>();
 		ArrayList<Integer> answer1 = new ArrayList<>();
 		ArrayList<String> explanation1 = new ArrayList<>();
-		/*
-		for (Ques ques : newquestion) {
-		    question1.add(ques.getQuestion());
-		    option11.add(ques.getOption1());
-		    option21.add(ques.getOption2());
-		    option31.add(ques.getOption3());
-		    option41.add(ques.getOption4());
-		    answer1.add(ques.getAnswer());
-		    explanation1.add(ques.getExplanation());
-		    }*/
+		
 	    if (question11 instanceof ArrayList) {
 	        question1 = (ArrayList<String>) question11;
 	        // コンストラクタにlistを渡す
@@ -140,7 +134,7 @@ public class Scoring extends HttpServlet {
 	    System.out.println("入れた回答"+answers.get(0));
 	    
 	    
-	    
+	    //採点ページに必要なデータをset
 	    ArrayList<Ques> resultList = new ArrayList<Ques>();
 	    for(int i = 0; i < numOfQuestions; i++) {
 	    	Ques ques = new Ques(question1.get(i),option11.get(i),option21.get(i),option31.get(i),option41.get(i),
@@ -160,13 +154,13 @@ public class Scoring extends HttpServlet {
 	    	}
 	    	
 	    }
-		/*counts*=100;*/
+		
 	    accuracy = counts/numOfQuestions*100;
 	    System.out.println(accuracy);
 	    System.out.println(ansCheck.get(0));
 	    
 	    
-		 //questionからanswerを取り出して配列に格納
+		//採点ページに必要なデータをset
 			
 	    request.setAttribute("resultList", resultList);
 	    request.setAttribute("accuracy", accuracy);

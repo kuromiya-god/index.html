@@ -46,8 +46,6 @@ public class RegisterCheck extends HttpServlet {
 		}else {
 			String message = "ご入力いただいたユーザーIDは既に使われています。";
 	        request.setAttribute("message", message);
-			//フォワード
-	        request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
 		}
 	}
 

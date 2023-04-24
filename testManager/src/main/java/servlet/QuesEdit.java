@@ -1,5 +1,5 @@
 package servlet;
-
+//editBeforeから問題idを貰って編集がっ面に表示させるservlet
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,9 +24,11 @@ public class QuesEdit extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String numberList = request.getParameter("answer");
+		//問題のidをうける
+		String numberList = request.getParameter("id");
 		int id = Integer.parseInt(numberList);
 		System.out.println("numberの"+id);
+		//ArrayListじゃなくても良いけど、試験モードの記述と合わせた(DAOが同じだから)
 		ArrayList<Integer> questionId = new ArrayList<>();
 		questionId.add(id);
 		QuestionsetDAO dao = new QuestionsetDAO();

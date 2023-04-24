@@ -79,6 +79,9 @@ nav a.logout {
 		// Servletから問題リストを取得する
 		questions = (ArrayList<Ques>) session.getAttribute("quesList");
 		// 問題リストをループして、各問題を表示する
+		//問題を全て表示して、そこからradioボタンでidをservletにpostすることで、存在しないidを入力できなくした
+		//問題を選択して削除ボタンを押すと削除してよいかの確認画面を表示する
+		//誤作動を防ぐため、編集画面を経由して表示する
 	%>
 	<p style="color: red; font-size: 24px;">削除モード</p>
 	<form method="post" action="/testManager/ConfirmDelete">

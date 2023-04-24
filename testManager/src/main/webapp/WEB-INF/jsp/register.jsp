@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--既にuser_idが登録されていた場合ここに飛ばして、別のuser_idを入力してもらう  -->
 <title>Insert title here</title>
 </head>
 <body>

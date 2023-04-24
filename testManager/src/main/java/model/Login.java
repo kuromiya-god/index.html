@@ -1,5 +1,5 @@
 package model;
-
+//ログイン関係のJavaBeans
 public class Login {
 	private String userId;
 	private String pass;

@@ -1,5 +1,5 @@
 package model;
-
+//ログインの確認のメソッド
 import dao.LoginDAO;
 
 public class LoginLogic {

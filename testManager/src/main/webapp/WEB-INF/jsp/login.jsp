@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--user_idかパスワードに誤りがあった場合、ここに飛ばす  -->
 <title>ログイン画面</title>
 </head>
 <body>

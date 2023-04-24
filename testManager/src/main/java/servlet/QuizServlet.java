@@ -1,5 +1,5 @@
 package servlet;
-
+//jspから問題のidを受け取り、問題一式をquiz.jspに渡すservlet
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.QuesListSetDAO;
 import dao.QuestionsetDAO;
 import model.Ques;
 
@@ -31,30 +32,36 @@ public class QuizServlet extends HttpServlet {
         // jspから問題IDを取得
 		request.setCharacterEncoding("UTF-8");
 		String[]  ids = request.getParameterValues("ids[]");
-		System.out.println(ids[0]);
-		ArrayList<Integer>  questionId = new ArrayList<Integer>() ;
-    	for (int i = 0; i < ids.length; i++) {
-    		questionId.add(Integer.parseInt(ids[i]));
-    	}
 		
+		ArrayList<Integer>  questionId = new ArrayList<Integer>() ;
+		//チェックボックスなのでnullが来たら元のページへ戻す
+		if(ids==null){
+		    QuesListSetDAO l = new QuesListSetDAO();
+		    ArrayList<Ques> quesList = l.findByQuesList();
+		    HttpSession session = request.getSession();
+		    session.setAttribute("quesList",quesList);
+		    request.getRequestDispatcher("/WEB-INF/jsp/quizChoice.jsp").forward(request, response);
+		} 
+		
+		//問題idをArrayListへセット
+		for (int i = 0; i < ids.length; i++) {
+			questionId.add(Integer.parseInt(ids[i]));
+		}
+		
+		//問題の数を変数にセット
 		int quesCount = 0;
 		quesCount = questionId.size();
-		
-		
+
 		for(Integer s:questionId) {
 			System.out.println("quesidのnull" +s);
 		}
 
-		/*		for (int i = 0; i < ids1.length; i++) {
-				    ids1[i] = Integer.parseInt(ids[i]);
-				}
-				*/
 		// 問題を取得
 		QuestionsetDAO dao = new QuestionsetDAO();
 		ArrayList<Ques> question = dao.findByQuestion(questionId);
 		
+		//ArrayListを準備
 		ArrayList<Integer> answerList = new ArrayList<>();
-
 		ArrayList<String> question1 = new ArrayList<>();
 		ArrayList<String> option11 = new ArrayList<>();
 		ArrayList<String> option21 = new ArrayList<>();
@@ -63,7 +70,7 @@ public class QuizServlet extends HttpServlet {
 		ArrayList<Integer> answer1 = new ArrayList<>();
 		ArrayList<String> explanation1 = new ArrayList<>();
 		
-		 //questionからanswerを取り出してArrayListに格納
+		 //questionから問題一式を取り出してArrayListに格納、Scoringで使う
 		for (Ques ques : question) {
             question1.add(ques.getQuestion());
             option11.add(ques.getOption1());
@@ -74,7 +81,7 @@ public class QuizServlet extends HttpServlet {
             explanation1.add(ques.getExplanation());
             
         }
-		
+		//questionからanswerを取り出してArrayListに格納
 		for (Ques ques : question) {
            
             answerList.add(ques.getAnswer());

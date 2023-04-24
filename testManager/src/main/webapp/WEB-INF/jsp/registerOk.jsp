@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--ユーザー登録がOKの場合このページを経由してログインページ(webapp直下)にとばす  -->
 <title>Insert title here</title>
 </head>
 <body>

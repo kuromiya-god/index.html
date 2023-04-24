@@ -1,5 +1,5 @@
 package servlet;
-
+//削除の確認ページへ遷移するservlet
 import java.io.IOException;
 import java.util.ArrayList;
 

@@ -1,5 +1,5 @@
 package model;
-
+//新規登録関係のDTO
 public class RegisterDTO {
 	private String userId;
 	private String pass;

@@ -78,13 +78,14 @@ nav a.logout {
 		// Servletから問題リストを取得する
 		questions = (ArrayList<Ques>) session.getAttribute("quesList");
 		// 問題リストをループして、各問題を表示する
+		//各問題を表示してチェックボックスでやりたい問題を選択して、問題のidをservletにpostする。
 	%>
 	<form method="post" action="/testManager/QuesEdit">
 <%
 		for (Ques ques : questions) {
 	%>
 	<div>
-		<p><input type="radio" name="answer" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>
+		<p><input type="radio" name="id" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>
 		<input type="hidden" name="id" value="<%= ques.getId() %>">			
 	</div>
 	<%

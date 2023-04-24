@@ -1,5 +1,5 @@
 package servlet;
-
+//試験ページへ遷移するservlet
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,6 +24,7 @@ public class UpGo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//今ある問題を取ってきてset
 		QuesListSetDAO l = new QuesListSetDAO();
 		ArrayList<Ques> quesList = l.findByQuesList();
 		HttpSession session = request.getSession();

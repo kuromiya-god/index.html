@@ -1,5 +1,5 @@
 package model;
-
+//ログイン関係のDTO
 public class Account {
 	private String userId;
 	private String pass;

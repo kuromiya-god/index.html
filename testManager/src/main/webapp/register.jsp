@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--新規登録ページ、このページとログインページだけをwebapp直下に置く  -->
 <title>Insert title here</title>
 </head>
 <body>
