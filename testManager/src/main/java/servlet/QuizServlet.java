@@ -29,18 +29,20 @@ public class QuizServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // jspから問題IDを取得
-		/*request.setCharacterEncoding("UTF-8");
-		String id1 = request.getParameter("ids");
-		ArrayList<String>  ids = request.getParameter("ids").split(",");*/
+		request.setCharacterEncoding("UTF-8");
+		String[]  ids = request.getParameterValues("ids[]");
+		System.out.println(ids[0]);
 		ArrayList<Integer>  questionId = new ArrayList<Integer>() ;
-		questionId.add(1);
-		questionId.add(2);
+    	for (int i = 0; i < ids.length; i++) {
+    		questionId.add(Integer.parseInt(ids[i]));
+    	}
+		
 		int quesCount = 0;
 		quesCount = questionId.size();
 		
 		
 		for(Integer s:questionId) {
-			System.out.println(s);
+			System.out.println("quesidのnull" +s);
 		}
 
 		/*		for (int i = 0; i < ids1.length; i++) {
@@ -51,26 +53,48 @@ public class QuizServlet extends HttpServlet {
 		QuestionsetDAO dao = new QuestionsetDAO();
 		ArrayList<Ques> question = dao.findByQuestion(questionId);
 		
-		int[] answerList = new int[question.size()];
+		ArrayList<Integer> answerList = new ArrayList<>();
 
-		// questionからanswerを取り出して配列に格納
-		for (int i = 0; i < question.size(); i++) {
-		    Ques ques = question.get(i);
-		    int answer = ques.getAnswer();
-		    answerList[i] = answer;
-		}
-
+		ArrayList<String> question1 = new ArrayList<>();
+		ArrayList<String> option11 = new ArrayList<>();
+		ArrayList<String> option21 = new ArrayList<>();
+		ArrayList<String> option31 = new ArrayList<>();
+		ArrayList<String> option41 = new ArrayList<>();
+		ArrayList<Integer> answer1 = new ArrayList<>();
+		ArrayList<String> explanation1 = new ArrayList<>();
 		
-		for (Ques item : question) {
-		    System.out.println(item);
-		}
+		 //questionからanswerを取り出してArrayListに格納
+		for (Ques ques : question) {
+            question1.add(ques.getQuestion());
+            option11.add(ques.getOption1());
+            option21.add(ques.getOption2());
+            option31.add(ques.getOption3());
+            option41.add(ques.getOption4());
+            answer1.add(ques.getAnswer());
+            explanation1.add(ques.getExplanation());
+            
+        }
 		
+		for (Ques ques : question) {
+           
+            answerList.add(ques.getAnswer());
+       
+            
+        }
+	
 		
 		// JSPに渡すために、問題をリクエストスコープに保存
 		HttpSession session = request.getSession();
 		session.setAttribute("question", question);
 		session.setAttribute("quesCount", quesCount);
 		session.setAttribute("answerList", answerList);
+		session.setAttribute("question1", question1);
+		session.setAttribute("option11", option11);
+		session.setAttribute("option21", option21);
+		session.setAttribute("option31", option31);
+		session.setAttribute("option41", option41);
+		session.setAttribute("explanation1", explanation1);
+		
 		
 
         // JSPへフォワード

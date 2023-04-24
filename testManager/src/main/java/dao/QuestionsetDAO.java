@@ -25,7 +25,7 @@ public class QuestionsetDAO {
 
             // SQL文を準備
         	StringBuilder sb = new StringBuilder();
-            sb.append("SELECT * FROM question WHERE id IN (");
+            sb.append("SELECT * FROM question WHERE deleted = false AND id IN (");
             for (int i = 0; i < questionId.size(); i++) {
                 sb.append("?");
                 if (i != questionId.size() - 1) {

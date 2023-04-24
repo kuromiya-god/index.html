@@ -14,10 +14,10 @@ import dao.QuesListSetDAO;
 import model.Ques;
 
 /**
- * Servlet implementation class UpGo
+ * Servlet implementation class GoDelete
  */
-@WebServlet("/UpGo")
-public class UpGo extends HttpServlet {
+@WebServlet("/GoDelete")
+public class GoDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -28,7 +28,7 @@ public class UpGo extends HttpServlet {
 		ArrayList<Ques> quesList = l.findByQuesList();
 		HttpSession session = request.getSession();
 		session.setAttribute("quesList",quesList);
-		request.getRequestDispatcher("/WEB-INF/jsp/quizChoice.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/delete.jsp").forward(request, response);
 	}
 
 }

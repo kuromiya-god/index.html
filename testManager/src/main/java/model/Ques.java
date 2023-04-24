@@ -9,6 +9,8 @@ public class Ques {
 	private int answer;
 	private String explanation;
 	private int id;
+	private boolean checkAns;
+	private int result;
 	
 	public Ques(String question,String option1,String option2,String option3,String option4,int answer,String explanation,int id) {
 		this.question = question;
@@ -30,6 +32,23 @@ public class Ques {
 		this.answer = answer;
 		this.explanation = explanation;
 		
+	}
+	
+	public Ques(String question,String option1,String option2,String option3,String option4,int answer,String explanation,boolean checkAns,int result ) {
+		this.question = question;
+		this.option1 = option1;
+		this.option2 = option2;
+		this.option3 = option3;
+		this.option4 = option4;
+		this.answer = answer;
+		this.explanation = explanation;
+		this.checkAns = checkAns;
+		this.result = result;
+	}
+	
+	public Ques(String question,int id) {
+		this.question = question;
+		this.id = id;
 	}
 
 	public String getQuestion() {
@@ -96,6 +115,23 @@ public class Ques {
 		this.id = id;
 	}
 
+	public boolean isCheckAns() {
+		return checkAns;
+	}
+
+	public void setCheckAns(boolean checkAns) {
+		this.checkAns = checkAns;
+	}
+
+	public int getResult() {
+		return result;
+	}
+
+	public void setResult(int result) {
+		this.result = result;
+	}
+
+	
 	
 	
 }

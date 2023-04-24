@@ -79,19 +79,20 @@ nav a.logout {
 		questions = (ArrayList<Ques>) session.getAttribute("quesList");
 		// 問題リストをループして、各問題を表示する
 	%>
-	<p>単体モード</p>
-	<form method="post" action="/testManager/QuizServlet">
+	<form method="post" action="/testManager/QuesEdit">
 <%
 		for (Ques ques : questions) {
 	%>
 	<div>
-		<p><input type="checkbox" name="ids[]" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>		
+		<p><input type="radio" name="answer" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>
+		<input type="hidden" name="id" value="<%= ques.getId() %>">			
 	</div>
 	<%
 		}
 	%>
 	
-	<input type="submit" value="試験開始"><br>
+	<input type="submit" value="問題表示"><br>
+	<a href="/testManager/GoDelete">削除ページへ</a>
 </form>
 	</div>
 	</div>

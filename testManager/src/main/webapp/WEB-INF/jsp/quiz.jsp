@@ -56,6 +56,11 @@ nav a.active {
 .tabcontent.active {
   display: block;
 }
+
+nav a.logout {
+  font-size: 12px; /* ログアウトリンクのテキストのフォントサイズを14pxに設定 */
+  padding: 5px; /* ログアウトリンクを囲む要素のパディングを5pxに設定 */
+}
 </style>
 </head>
 <body>
@@ -63,7 +68,8 @@ nav a.active {
 		<nav>
 			<a href="/testManager/UpGo" class="tablinks active"	onclick="openTab(event, 'tab1')">試験</a> 
 			<a href="/testManager/quesMake"	class="tablinks active" onclick="openTab(event, 'tab2')">問題作成</a>
-			<a href="/testManager/UpGo" class="tablinks active" onclick="openTab(event, 'tab3')">問題編集</a>
+			<a href="/testManager/GoEdit" class="tablinks active" onclick="openTab(event, 'tab3')">問題編集</a>
+			<a href="/testManager/LogOut" class="tablinks logout" onclick="openTab(event, 'tab4')">ログアウト</a>
 		</nav>
 		<div style="flex: 3;">
 			<div id="tab1" class="tabcontent active">
@@ -72,7 +78,7 @@ nav a.active {
 		questions = (ArrayList<Ques>) session.getAttribute("question");
 		// 問題リストをループして、各問題を表示する
 	%>
-	<form method="post" action="Scoring">
+	<form method="post" action="/testManager/Scoring">
 <%
 		for (Ques ques : questions) {
 	%>

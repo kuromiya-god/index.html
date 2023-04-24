@@ -61,6 +61,7 @@ nav a.logout {
   font-size: 12px; /* ログアウトリンクのテキストのフォントサイズを14pxに設定 */
   padding: 5px; /* ログアウトリンクを囲む要素のパディングを5pxに設定 */
 }
+
 </style>
 </head>
 <body>
@@ -79,19 +80,20 @@ nav a.logout {
 		questions = (ArrayList<Ques>) session.getAttribute("quesList");
 		// 問題リストをループして、各問題を表示する
 	%>
-	<p>単体モード</p>
-	<form method="post" action="/testManager/QuizServlet">
+	<p style="color: red; font-size: 24px;">削除モード</p>
+	<form method="post" action="/testManager/ConfirmDelete">
 <%
 		for (Ques ques : questions) {
 	%>
 	<div>
-		<p><input type="checkbox" name="ids[]" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>		
+		<p><input type="radio" name="answer" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>
+				
 	</div>
 	<%
 		}
 	%>
 	
-	<input type="submit" value="試験開始"><br>
+	<input type="submit" value="削除"><br>
 </form>
 	</div>
 	</div>

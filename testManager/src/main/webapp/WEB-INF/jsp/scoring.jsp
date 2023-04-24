@@ -2,14 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Ques" %>
-<%    // ArrayListの宣言
-    ArrayList<Ques> questions = new ArrayList<Ques>();
-	
-%>
-<% // ArrayListの宣言
-int[] answers = (int[])session.getAttribute("answers");
-boolean[] ansCheck = (boolean[])session.getAttribute("ansCheck");
-%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,10 +11,32 @@ boolean[] ansCheck = (boolean[])session.getAttribute("ansCheck");
 <title>Insert title here</title>
 </head>
 <body>
+
 <%
-		// Servletから問題リストを取得する
-		questions = (ArrayList<Ques>) session.getAttribute("question");
-		// 問題リストをループして、各問題を表示する
+ArrayList<Ques> questions = (ArrayList<Ques>) request.getAttribute("resultList");
+float acc = (float)request.getAttribute("accuracy");
+		for (Ques ques : questions) {
 	%>
+	<div>
+		<% if(ques.isCheckAns()){ %>
+			〇
+			<%}else{ %>
+			×
+			<%} %><br>
+		<p>問題文: <%= ques.getQuestion() %></p>
+		
+			<input type="hidden" name="id" value="<%= ques.getId() %>">
+        	1.<%= ques.getOption1() %>
+        	2.<%= ques.getOption2() %>
+        	3.<%= ques.getOption3() %>
+        	4.<%= ques.getOption4() %><br>
+			回答：<%= ques.getResult() %>
+			正解：<%= ques.getAnswer() %><br>
+			解説：<%= ques.getExplanation() %><br>
+	</div>
+	<%
+		}
+	%>
+	正解率：<%= acc %>%
 </body>
 </html>
