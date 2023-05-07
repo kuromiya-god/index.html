@@ -84,27 +84,10 @@ nav a.active2 {
 		</nav>
 		<div style="flex:3;">
 			<div id="tab1" class="tabcontent active">
-			<%
-		// Servletから問題リストを取得する
-		questions = (ArrayList<Ques>) session.getAttribute("quesList");
-		// 問題リストをループして、各問題を表示する
-		//各問題を表示してチェックボックスでやりたい問題を選択して、問題のidをservletにpostする。
-	%>
-	<form method="post" action="/testManager/QuesEdit">
-<%
-		for (Ques ques : questions) {
-	%>
-	<div>
-		<p><input type="radio" name="answer" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>
-		<input type="hidden" name="id" value="<%= ques.getId() %>">			
-	</div>
-	<%
-		}
-	%>
-	
-	<input type="submit" value="問題表示" required><br>
-	<a href="/testManager/GoDelete">削除ページへ</a>
-</form>
+		
+			<a href="/testManager/quesMake">問題作成ページ</a><br>
+			<a href="/testManager/GoWorkbook">問題集作成ページ</a>
+		
 	</div>
 	</div>
 	</div>

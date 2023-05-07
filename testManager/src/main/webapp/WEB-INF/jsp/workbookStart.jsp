@@ -2,9 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Ques" %>
+<%@ page import="model.Workbook" %>
 <%    // ArrayListの宣言
     ArrayList<Ques> questions = new ArrayList<Ques>();
-	
+	int workbookTime = 0;
+	Workbook wb = null;
 %>
 <!DOCTYPE html>
 <html>
@@ -82,29 +84,37 @@ nav a.active2 {
 			<a href="/testManager/GoResult" class="tablinks active" onclick="openTab(event, 'tab4')">成績</a>
 			<a href="/testManager/LogOut" class="tablinks logout" onclick="openTab(event, 'tab5')">ログアウト</a>
 		</nav>
-		<div style="flex:3;">
+		<div style="flex: 3;">
 			<div id="tab1" class="tabcontent active">
-			<%
+				<%
 		// Servletから問題リストを取得する
-		questions = (ArrayList<Ques>) session.getAttribute("quesList");
-		// 問題リストをループして、各問題を表示する
-		//各問題を表示してチェックボックスでやりたい問題を選択して、問題のidをservletにpostする。
+		questions = (ArrayList<Ques>) session.getAttribute("question");
+		workbookTime = (int)request.getAttribute("workbookTime");
+		wb = (Workbook)session.getAttribute("wb");
+		// quizChoiceで選択した問題リストをループして表示する
+		//問題を選択してpostする
 	%>
-	<form method="post" action="/testManager/QuesEdit">
+	<form method="post" action="/testManager/Scoring2">
+	<% int number =0; %>
+	<p><%= wb.getTitle() %>：第<%= workbookTime %>回目</p>
 <%
 		for (Ques ques : questions) {
 	%>
-	<div>
-		<p><input type="radio" name="answer" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>
-		<input type="hidden" name="id" value="<%= ques.getId() %>">			
-	</div>
-	<%
-		}
-	%>
 	
-	<input type="submit" value="問題表示" required><br>
-	<a href="/testManager/GoDelete">削除ページへ</a>
-</form>
+	<div>
+		<p>問題文: <%= ques.getQuestion() %></p>
+		
+			<input type="hidden" name="id" value="<%= ques.getId() %>">
+        	<input type="radio" name="answer_<%= number %>" value="1"><%= ques.getOption1() %><br>
+        	<input type="radio" name="answer_<%= number %>" value="2"><%= ques.getOption2() %><br>
+        	<input type="radio" name="answer_<%= number %>" value="3"><%= ques.getOption3() %><br>
+        	<input type="radio" name="answer_<%= number %>" value="4"><%= ques.getOption4() %><br>
+		<% number++;} %>
+	</div>
+	
+	<input type="hidden" name="workbookTime" value=<%= workbookTime%>>
+	<input type="submit" value="回答する">
+		</form>
 	</div>
 	</div>
 	</div>

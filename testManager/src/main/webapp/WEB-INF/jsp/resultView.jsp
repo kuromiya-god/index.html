@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.Ques" %>
+<%@ page import="model.ResultDTO" %>
+<%@ page import="model.Workbook" %>
 <%    // ArrayListの宣言
-    ArrayList<Ques> questions = new ArrayList<Ques>();
-	
+    ArrayList<ArrayList<String>> rl = new ArrayList<>();
+	ArrayList<ArrayList<String>> rq = new ArrayList<>();
+	ArrayList<Float> rp = new ArrayList<>();
+	ArrayList<String> rt = new ArrayList<>();
+	ArrayList<Integer> rtime = new ArrayList<>();
 %>
 <!DOCTYPE html>
 <html>
@@ -82,31 +86,45 @@ nav a.active2 {
 			<a href="/testManager/GoResult" class="tablinks active" onclick="openTab(event, 'tab4')">成績</a>
 			<a href="/testManager/LogOut" class="tablinks logout" onclick="openTab(event, 'tab5')">ログアウト</a>
 		</nav>
-		<div style="flex:3;">
+		<div style="flex: 3;">
 			<div id="tab1" class="tabcontent active">
-			<%
-		// Servletから問題リストを取得する
-		questions = (ArrayList<Ques>) session.getAttribute("quesList");
-		// 問題リストをループして、各問題を表示する
-		//各問題を表示してチェックボックスでやりたい問題を選択して、問題のidをservletにpostする。
+				<%
+		// Servletからresultリストを取得する
+		rl = (ArrayList<ArrayList<String>>) session.getAttribute("rl");
+		rq = (ArrayList<ArrayList<String>>) session.getAttribute("rq");
+		rp = (ArrayList<Float>)session.getAttribute("rp");
+		rt = (ArrayList<String>) session.getAttribute("rt");
+		rtime = (ArrayList<Integer>)session.getAttribute("rtime");
+		/* int i = 0; */
 	%>
-	<form method="post" action="/testManager/QuesEdit">
-<%
-		for (Ques ques : questions) {
-	%>
-	<div>
-		<p><input type="radio" name="answer" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>
-		<input type="hidden" name="id" value="<%= ques.getId() %>">			
-	</div>
-	<%
-		}
+
+<%-- <%
+		for (ResultDTO r : rd) {
 	%>
 	
-	<input type="submit" value="問題表示" required><br>
-	<a href="/testManager/GoDelete">削除ページへ</a>
-</form>
+	<div>
+		<p><%= r.getTitle() %>： <%= r.getWorkbookTime() %>回目</p><br>
+		<p>正解率： <%= r.getResultpercentage() %>%</p>
+		
+			<% for (ArrayList<ResultDTO> d : r){%>
+			  <% i%>問目：<% d.get %>
+		<% i++;} %> --%>
+<%
+		for(int i = 0;i<rp.size();i++){
+%>			<p><%= rt.get(i) %>： <%= rtime.get(i) %>回目<br>
+			正解率：<%= rp.get(i) %></p>
+<%			for(int o = 0;o<rl.get(i).size();o++){%>
+				<p><%=(o+1)%>問目 <%=rl.get(i).get(o) %>：
+				<%= rq.get(i).get(o) %></p>
+<% 		}
+		}
+
+%>
+	</div>
+	
+
 	</div>
 	</div>
-	</div>
+
 </body>
 </html>

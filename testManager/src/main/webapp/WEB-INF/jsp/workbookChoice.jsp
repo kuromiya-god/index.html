@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.Ques" %>
+<%@ page import="model.Workbook" %>
 <%    // ArrayListの宣言
-    ArrayList<Ques> questions = new ArrayList<Ques>();
+    ArrayList<Workbook> workbooks = new ArrayList<Workbook>();
 	
 %>
 <!DOCTYPE html>
@@ -84,26 +84,31 @@ nav a.active2 {
 		</nav>
 		<div style="flex:3;">
 			<div id="tab1" class="tabcontent active">
-			<%
-		// Servletから問題リストを取得する
-		questions = (ArrayList<Ques>) session.getAttribute("quesList");
-		// 問題リストをループして、各問題を表示する
-		//各問題を表示してチェックボックスでやりたい問題を選択して、問題のidをservletにpostする。
-	%>
-	<form method="post" action="/testManager/QuesEdit">
 <%
-		for (Ques ques : questions) {
+		// Servletから問題リストを取得する
+		workbooks = (ArrayList<Workbook>) session.getAttribute("workbook");
+		// 問題リストをループして、各問題を表示する
+		//チェックボックスでやりたい問題を選択して試験を開始する
+	%>
+	<p>問題集編集モード</p>
+	<form method="post" action="/testManager/WorkbookEdit">
+<%
+		for (Workbook workbook : workbooks) {
 	%>
 	<div>
-		<p><input type="radio" name="answer" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>
-		<input type="hidden" name="id" value="<%= ques.getId() %>">			
+		題名: <%= workbook.getTitle() %><br>
+		ジャンル： <%= workbook.getGenre() %><br>
+		作成者名： <%= workbook.getAuthor_name() %><br>
+		ランダム：<% if(workbook.isRandom()){%>on<% }else{ %>off<%} %><br>
+		ステルス：<% if(workbook.isStealth()){%>on<% }else{ %>off<%} %><br>
+		問題数制限：<% if(workbook.getLimit()==0){%>無し<% }else{ %><%=workbook.getLimit()%><%} %><br>
+		選択：<input type="radio" name="title" value=<%=workbook.getTitle()%> required><br>
 	</div>
 	<%
 		}
 	%>
 	
-	<input type="submit" value="問題表示" required><br>
-	<a href="/testManager/GoDelete">削除ページへ</a>
+	<input type="submit" value="編集"><br>
 </form>
 	</div>
 	</div>

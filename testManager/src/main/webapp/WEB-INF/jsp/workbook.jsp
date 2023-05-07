@@ -88,22 +88,37 @@ nav a.active2 {
 		// Servletから問題リストを取得する
 		questions = (ArrayList<Ques>) session.getAttribute("quesList");
 		// 問題リストをループして、各問題を表示する
-		//各問題を表示してチェックボックスでやりたい問題を選択して、問題のidをservletにpostする。
+		//チェックボックスで問題集に格納するのを選ぶ
 	%>
-	<form method="post" action="/testManager/QuesEdit">
+	<p>問題集作成モード</p>
+	<form method="post" action="/testManager/WorkbookSet">
+		<label for="title">問題集題名:</label>
+		<input type="text" name="title" maxlength="50" id="title" required><br>
+		<label for="genre">ジャンル:</label>
+		<input type="text" name="genre" maxlength="50" id="genre" required><br>
+		<label for="author_name">作成者名:</label>
+		<input type="text" name="author_name" maxlength="50" id="author_name" required>（公開される作成者名です）<br>
+		<label for="random">ランダム：</label>
+		<input type="checkbox" name="random" Value="true">（チェックを入れると出題順がランダムになります）<br>
+		<label for="random">ステルス：</label>
+		<input type="checkbox" name="stealth" Value="true">（チェックを入れると全文一致しないと検索で表示されなくなります）<br>
+		<label for="answer">問題数制限:</label>
+		<input type="number" id="inputNumber" name="answer" min="1" max="50">(問題数の制限ができます。問題数を超えた制限は無効です)<br>	
+		<p>問題集に入れる問題を選択してください。</p>
+		<div id="errormessage">${errormessage}</div>
 <%
 		for (Ques ques : questions) {
 	%>
 	<div>
-		<p><input type="radio" name="answer" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>
-		<input type="hidden" name="id" value="<%= ques.getId() %>">			
+		<p><input type="checkbox" name="ids[]" value=<%=ques.getId()%>>
+		
+		問題文: <%= ques.getQuestion() %></p>		
 	</div>
 	<%
 		}
 	%>
 	
-	<input type="submit" value="問題表示" required><br>
-	<a href="/testManager/GoDelete">削除ページへ</a>
+	<input type="submit" value="問題集作成"><br>
 </form>
 	</div>
 	</div>

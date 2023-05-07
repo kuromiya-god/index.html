@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.Ques" %>
+<%@ page import="model.Workbook" %>
 <%    // ArrayListの宣言
-    ArrayList<Ques> questions = new ArrayList<Ques>();
+    ArrayList<Workbook> workbooks = new ArrayList<Workbook>();
 	
 %>
 <!DOCTYPE html>
@@ -74,6 +74,7 @@ nav a.active2 {
 <body>
 	<h1>テスト管理ツール</h1>
 	<p><font size="2" face="ＭＳ Ｐ明朝" color="#808080">こんにちは<% String name = (String)session.getAttribute("userId");%><%=name %>さん</font></p>
+	
 	<div style="display:flex;">
 		<nav>
 			<a href="/testManager/GoQuizWorkbook" class="tablinks active" onclick="openTab(event, 'tab1')">試験</a>
@@ -84,27 +85,32 @@ nav a.active2 {
 		</nav>
 		<div style="flex:3;">
 			<div id="tab1" class="tabcontent active">
-			<%
-		// Servletから問題リストを取得する
-		questions = (ArrayList<Ques>) session.getAttribute("quesList");
-		// 問題リストをループして、各問題を表示する
-		//各問題を表示してチェックボックスでやりたい問題を選択して、問題のidをservletにpostする。
-	%>
-	<form method="post" action="/testManager/QuesEdit">
 <%
-		for (Ques ques : questions) {
+		// Servletから問題リストを取得する
+		workbooks = (ArrayList<Workbook>) session.getAttribute("workbook");
+		// 問題リストをループして、各問題を表示する
+		//チェックボックスでやりたい問題を選択して試験を開始する
 	%>
+	<p>自作試験結果表示モード</p>
+	
+<%
+		for (Workbook workbook : workbooks) {
+	%>
+	<form method="post" action="/testManager/GoMakedResultListView">
 	<div>
-		<p><input type="radio" name="answer" value=<%=ques.getId()%> required>問題文: <%= ques.getQuestion() %></p>
-		<input type="hidden" name="id" value="<%= ques.getId() %>">			
+		題名: <%= workbook.getTitle() %><br>
+		ジャンル： <%= workbook.getGenre() %><br>
+		作成者： <%= workbook.getAuthor_name() %><br>
+		<input type="hidden" name="title" value=<%=workbook.getTitle()%>>
+		<input type="submit" value="表示"><br>
 	</div>
+	</form>
 	<%
 		}
 	%>
 	
-	<input type="submit" value="問題表示" required><br>
-	<a href="/testManager/GoDelete">削除ページへ</a>
-</form>
+	
+
 	</div>
 	</div>
 	</div>
