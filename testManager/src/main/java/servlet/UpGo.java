@@ -29,6 +29,8 @@ public class UpGo extends HttpServlet {
 		ArrayList<Ques> quesList = l.findByQuesList();
 		HttpSession session = request.getSession();
 		session.setAttribute("quesList",quesList);
+		Object obj = session.getAttribute("userId");
+		 System.out.println((String)obj);
 		request.getRequestDispatcher("/WEB-INF/jsp/quizChoice.jsp").forward(request, response);
 	}
 

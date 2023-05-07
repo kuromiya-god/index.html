@@ -27,6 +27,9 @@ public class ConfirmDelete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String numberList = request.getParameter("answer");
+		if(numberList==null) {
+			request.getRequestDispatcher("/WEB-INF/jsp/editBefore.jsp").forward(request, response);
+		}
 		int id = Integer.parseInt(numberList);
 		System.out.println("numberの"+id);
 		ArrayList<Integer> questionId = new ArrayList<>();

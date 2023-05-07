@@ -10,13 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.QuestionsetDAO;
 import model.Ques;
+import model.Workbook;
 
 /**
  * Servlet implementation class Scoring
  */
-@WebServlet("/Scoring")
-public class Scoring extends HttpServlet {
+@WebServlet("/Scoring2")
+public class Scoring2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -34,24 +36,24 @@ public class Scoring extends HttpServlet {
 		Object option411 = session.getAttribute("option41");
 		Object explanation11 = session.getAttribute("explanation1");
 		//workbookのタイトルを持ってくる
-		//Workbook workbook = (Workbook)session.getAttribute("wb");
+		Workbook workbook = (Workbook)session.getAttribute("wb");
 		String author_name = null;
-		//author_name = workbook.getUser_id();
-		//int workbook_id= workbook.getWorkbook_id();
-		//String title = workbook.getTitle();
+		author_name = workbook.getUser_id();
+		int workbook_id= workbook.getWorkbook_id();
+		String title = workbook.getTitle();
 		//問題のidリストをjoinしてString型にする
-		//ArrayList<Integer> qi = (ArrayList<Integer>)session.getAttribute("questionid");
+		ArrayList<Integer> qi = (ArrayList<Integer>)session.getAttribute("questionid");
 		ArrayList<String> qi2 = new ArrayList<>();
-		/*for(int i =0;i<qi.size();i++) {
+		for(int i =0;i<qi.size();i++) {
 			qi2.add(String.valueOf(qi.get(i)));
-		}*/
+		}
 		String question_id = String.join(",", qi2);
 		
 		ArrayList<Integer> answerList = (ArrayList<Integer>)session.getAttribute("answerList");
 		//試験の回数をいれる
-		/*String wt = request.getParameter("workbookTime");
+		String wt = request.getParameter("workbookTime");
 		int workbooktime = 0;
-		workbooktime = Integer.parseInt(wt);*/
+		workbooktime = Integer.parseInt(wt);
 		String user_id = (String)session.getAttribute("userId");
 		if(user_id==null) {
 			response.sendRedirect("/testManager/login.jsp");
@@ -207,10 +209,10 @@ public class Scoring extends HttpServlet {
 	    
 	    
 	    //resultに結果を格納
-		/*if(workbooktime!=0) {
-		QuestionsetDAO i = new QuestionsetDAO();
-		i.resultSetDAO(user_id,workbook_id,title,question_id,result,accuracy,workbooktime,author_name);
-		}*/
+	    if(workbooktime!=0) {
+	    QuestionsetDAO i = new QuestionsetDAO();
+	    i.resultSetDAO(user_id,workbook_id,title,question_id,result,accuracy,workbooktime,author_name);
+	    }
 		//採点ページに必要なデータをset
 			
 	    request.setAttribute("resultList", resultList);

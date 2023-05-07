@@ -37,6 +37,8 @@ public class QuesEditForDao extends HttpServlet {
 		//問題の編集には既存のidが必要なためここだけ問題作成と異なる
 		String id1 = request.getParameter("id");
 		int id = Integer.parseInt(id1);
+		HttpSession session = request.getSession();
+		String user_id = (String)session.getAttribute("userId");
 		
 		System.out.println(id);
 		
@@ -48,8 +50,8 @@ public class QuesEditForDao extends HttpServlet {
 		
 		//フォワード(編集ページへ)
 		QuesListSetDAO l = new QuesListSetDAO();
-		ArrayList<Ques> quesList = l.findByQuesList();
-		HttpSession session = request.getSession();
+		ArrayList<Ques> quesList = l.findByQuesList(user_id);
+		
 		session.setAttribute("quesList",quesList);
 		request.getRequestDispatcher("/WEB-INF/jsp/editBefore.jsp").forward(request, response);
 	}

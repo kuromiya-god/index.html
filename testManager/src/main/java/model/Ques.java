@@ -11,6 +11,7 @@ public class Ques {
 	private int id;
 	private boolean checkAns;
 	private int result;
+	private String user_id;
 	
 	public Ques(String question,String option1,String option2,String option3,String option4,int answer,String explanation,int id) {
 		this.question = question;
@@ -23,7 +24,7 @@ public class Ques {
 		this.id = id;
 	}
 	
-	public Ques(String question,String option1,String option2,String option3,String option4,int answer,String explanation) {
+	public Ques(String question,String option1,String option2,String option3,String option4,int answer,String explanation,String user_id) {
 		this.question = question;
 		this.option1 = option1;
 		this.option2 = option2;
@@ -31,7 +32,7 @@ public class Ques {
 		this.option4 = option4;
 		this.answer = answer;
 		this.explanation = explanation;
-		
+		this.setUser_id(user_id);
 	}
 	
 	public Ques(String question,String option1,String option2,String option3,String option4,int answer,String explanation,boolean checkAns,int result ) {
@@ -129,6 +130,14 @@ public class Ques {
 
 	public void setResult(int result) {
 		this.result = result;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	

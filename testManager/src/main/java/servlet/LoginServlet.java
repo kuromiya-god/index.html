@@ -1,6 +1,7 @@
 package servlet;
 //ログインの成否を判定するservlet
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.QuesListSetDAO;
 import model.Login;
 import model.LoginLogic;
+import model.Ques;
+import model.Workbook;
 
 /**
  * Servlet implementation class LoginServlet
@@ -40,11 +44,15 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userId", userId);
 			
 			//フォワード(試験画面へ)
-			request.getRequestDispatcher("/WEB-INF/jsp/quizChoice.jsp").forward(request, response);
+			QuesListSetDAO l = new QuesListSetDAO();
+			ArrayList<Ques> quesList = l.findByQuesList();
+			QuesListSetDAO s = new QuesListSetDAO();
+			ArrayList<Workbook> workbook = s.findByWorkbook();
 			
-			/* session.invalidate();*/
-			/* Object obj = session.getAttribute(userId);
-			 System.out.println(obj);*/
+			session.setAttribute("workbook",workbook);
+			session.setAttribute("quesList",quesList);
+			request.getRequestDispatcher("/WEB-INF/jsp/quizWorkbook.jsp").forward(request, response);
+			
 			 
 		}else {
 			//フォワード(外から見れないjspへ)

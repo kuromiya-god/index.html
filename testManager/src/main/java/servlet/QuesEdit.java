@@ -25,7 +25,13 @@ public class QuesEdit extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		//問題のidをうける
-		String numberList = request.getParameter("id");
+		String numberList = request.getParameter("answer");
+		
+		//削除ボタンを押された時の処理
+		if(numberList==null) {
+			request.getRequestDispatcher("/WEB-INF/jsp/editBefore.jsp").forward(request, response);
+		}
+		
 		int id = Integer.parseInt(numberList);
 		System.out.println("numberの"+id);
 		//ArrayListじゃなくても良いけど、試験モードの記述と合わせた(DAOが同じだから)

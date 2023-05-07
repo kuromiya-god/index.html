@@ -24,9 +24,16 @@ public class GoDelete extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		QuesListSetDAO l = new QuesListSetDAO();
-		ArrayList<Ques> quesList = l.findByQuesList();
 		HttpSession session = request.getSession();
+		String user_id = (String) session.getAttribute("userId");
+		if(user_id==null) {
+			response.sendRedirect("/testManager/login.jsp");
+			return;
+		}
+		
+		QuesListSetDAO l = new QuesListSetDAO();
+		ArrayList<Ques> quesList = l.findByQuesList(user_id);
+		
 		session.setAttribute("quesList",quesList);
 		request.getRequestDispatcher("/WEB-INF/jsp/delete.jsp").forward(request, response);
 	}

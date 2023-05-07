@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.QuesUpDAO;
 import model.Ques;
@@ -36,11 +37,12 @@ public class quesMake extends HttpServlet {
 		String answer1 = request.getParameter("answer");
 		int answer = Integer.parseInt(answer1);
 		String explanation = request.getParameter("explanation");
-		
+		HttpSession session = request.getSession();
+		String user_id = (String)session.getAttribute("userId");
 		
 		
 		//Quesクラスをインスタンス化
-		Ques ques = new Ques(question,option1,option2,option3,option4,answer,explanation);
+		Ques ques = new Ques(question,option1,option2,option3,option4,answer,explanation,user_id);
 		QuesUpDAO qd = new QuesUpDAO(); 
 		//問題をup
 		qd.quesUpDAO(ques);

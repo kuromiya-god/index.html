@@ -1,5 +1,5 @@
 package servlet;
-//編集のトップ画面へ遷移するservlet
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.QuesListSetDAO;
-import model.Ques;
+import model.Workbook;
 
 /**
- * Servlet implementation class GoEdit
+ * Servlet implementation class GoQuizWorkbook
  */
-@WebServlet("/GoEdit")
-public class GoEdit extends HttpServlet {
+@WebServlet("/GoQuizWorkbook")
+public class GoQuizWorkbook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -32,15 +32,10 @@ public class GoEdit extends HttpServlet {
 		}
 		
 		QuesListSetDAO l = new QuesListSetDAO();
-		ArrayList<Ques> quesList = l.findByQuesList(user_id);
+		ArrayList<Workbook> workbook = l.findByWorkbook();
 		
-		/*if(quesList==null) {
-			response.sendRedirect("/testManager/login.jsp");
-			return;
-		}*/
-		
-		session.setAttribute("quesList",quesList);
-		request.getRequestDispatcher("/WEB-INF/jsp/editBefore.jsp").forward(request, response);
+		session.setAttribute("workbook",workbook);
+		request.getRequestDispatcher("/WEB-INF/jsp/quizWorkbook.jsp").forward(request, response);
 	}
 
 }

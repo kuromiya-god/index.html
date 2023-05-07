@@ -41,6 +41,7 @@ public class QuizServlet extends HttpServlet {
 		    HttpSession session = request.getSession();
 		    session.setAttribute("quesList",quesList);
 		    request.getRequestDispatcher("/WEB-INF/jsp/quizChoice.jsp").forward(request, response);
+		    
 		} 
 		
 		//問題idをArrayListへセット

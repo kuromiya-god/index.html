@@ -1,5 +1,5 @@
 package servlet;
-//編集のトップ画面へ遷移するservlet
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -14,33 +14,30 @@ import dao.QuesListSetDAO;
 import model.Ques;
 
 /**
- * Servlet implementation class GoEdit
+ * Servlet implementation class GoWorkbook
  */
-@WebServlet("/GoEdit")
-public class GoEdit extends HttpServlet {
+@WebServlet("/GoWorkbook")
+public class GoWorkbook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		String user_id = (String) session.getAttribute("userId");
+		String user_id = (String)session.getAttribute("userId");
 		if(user_id==null) {
+			session = request.getSession();
+			session.invalidate();
 			response.sendRedirect("/testManager/login.jsp");
 			return;
 		}
 		
 		QuesListSetDAO l = new QuesListSetDAO();
 		ArrayList<Ques> quesList = l.findByQuesList(user_id);
-		
-		/*if(quesList==null) {
-			response.sendRedirect("/testManager/login.jsp");
-			return;
-		}*/
-		
 		session.setAttribute("quesList",quesList);
-		request.getRequestDispatcher("/WEB-INF/jsp/editBefore.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/workbook.jsp").forward(request, response);
 	}
 
 }
